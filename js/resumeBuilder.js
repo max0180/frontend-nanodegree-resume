@@ -186,7 +186,7 @@ $("#mapDiv").append(googleMap);
 $(document).ready(function(){
 	$(".work-entry, .project-entry, .education-entry").hide();
 
-    $("h2:not(#mapDiv>h2)").click(function(){
+    $("h2:not(#mapDiv>h2, #lets-connect>h2)").click(function(){
     	$(this).next().slideToggle(600);
     $(this).find("i.fa").toggleClass("fa-minus"); 
 		}); });
