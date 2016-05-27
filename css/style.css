@@ -34,7 +34,7 @@ h1 {
 h2 {
   font-weight: bold;
   font-size: 24px;
-  color: rgb(33,68,204);
+  color: rgb(100,100,100);
   line-height: 29px;
   padding: 10px;
 }
@@ -60,7 +60,6 @@ h5 {
   padding:10px 5%;
 
 }
-
 
 .date-text {
   font-style: italic;
@@ -92,9 +91,10 @@ a {
   display: block;
 }
 
-a:hover {
-
-
+#workExperience h2:hover, #projects h2:hover, #education h2:hover{
+color: orange;
+cursor: pointer;
+text-shadow: 0 1px 2px black;
 }
 
 .welcome-message {
@@ -147,18 +147,32 @@ a:hover {
 }
 
 .center-content {
-  padding: 2.5% 5%;
+  padding: 2% 3%;
+}
+
+#projects {
+  padding-bottom: 10px;
 }
 
 ul {
   list-style-type: none;
 }
 
+.fa {
+  font-size: 15px !important;
+  margin-right: 20px;
+}
+
 .biopic {
   float: left;
   padding: 10px;
-  width: 200px;
+  max-width: 120px;
   display: none;
+  border-radius: 15px;
+}
+
+.online {
+  padding: 15px 0 !important;
 }
 
 img {
@@ -172,6 +186,7 @@ span {
 #lets-connect {
   text-align: center;
 }
+
 
 /* Media queries to handle various device widths */
 

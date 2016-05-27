@@ -74,23 +74,21 @@ var projects = {
 }
 
 projects.display = function() {
-for(var i in this.science) {
-
-$("#projects h2").after(HTMLprojectStart);
-   
+	$("#projects h2").after(HTMLprojectStart);
+	for(var i in this.science) {
    var x = HTMLprojectTitle.replace("%data%" , this.science[i].title) + 
 		HTMLprojectDates.replace("%data%" , this.science[i].dates) +
 		HTMLprojectDescription.replace("%data%" , this.science[i].description) +
 		HTMLprojectImage.replace("%data%" , this.science[i].image);
 		
    $(".project-entry:last").append(x);
-}
+	}
 };
 
 work.display = function() {
+	$("#workExperience").append(HTMLworkStart);
 	for (var i in this.jobs) {
 	
-	$("#workExperience").append(HTMLworkStart);
 
 	var x = HTMLworkEmployer.replace("%data%" , this.jobs[i].employer) 
 		+ HTMLworkTitle.replace("%data%" , this.jobs[i].title);
@@ -101,7 +99,7 @@ work.display = function() {
 	var z = HTMLworkDescription.replace("%data%" , this.jobs[i].description);
 	
 	$(".work-entry:last").append(x, y, z);
-}
+	}
 };
 
 bio.display = function() {
@@ -152,9 +150,7 @@ education.display = function () {
 		$(".education-entry:last").append(x);
 	}
 
-	$(".education-entry").after(HTMLonlineClasses);
-
-	$("div.education-entry + h3").after(HTMLschoolStart);
+	$(".education-entry:last").append(HTMLonlineClasses);
 
 	for (var j in this.onlineCourses) {
 		var z= HTMLonlineURL.replace("%data%" , this.onlineCourses[j].url);
@@ -162,7 +158,7 @@ education.display = function () {
 				HTMLonlineSchool.replace("%data%" , this.onlineCourses[j].school) +
 				HTMLonlineDates.replace("%data%" , this.onlineCourses[j].date) +
 				 z.replace( "#" , this.onlineCourses[j].url);
-		$("h3 + div.education-entry:last").append(y);
+		$(".education-entry:last").append(y);
 	} 
 } 
 
@@ -187,11 +183,13 @@ $("#main").append(internationalizeButton);
 $("#mapDiv").append(googleMap);
 
 
-$(document).ready(function(){$("#workExperience, #projects, #education, #mapDiv, #lets-connect").hide(function(){
-	
-});
-});
+$(document).ready(function(){
+	$(".work-entry, .project-entry, .education-entry").hide();
 
+    $("h2:not(#mapDiv>h2)").click(function(){
+    	$(this).next().slideToggle(600);
+    $(this).find("i.fa").toggleClass("fa-minus"); 
+		}); });
 
 
 
