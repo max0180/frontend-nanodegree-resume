@@ -11,7 +11,7 @@ var bio = {
 		"location": "New York, NY"
 	},
 	"bioPic": "images/simpson.gif",
-	"welcomeMessage": "Aspiring Front- and Back-End Web Developer"
+	"welcomeMessage": "Front- and Back-End Web Developer in training"
 }
 
 var work = {
@@ -88,17 +88,17 @@ $("#projects h2").after(HTMLprojectStart);
 };
 
 work.display = function() {
-	for (var i in work.jobs) {
+	for (var i in this.jobs) {
 	
 	$("#workExperience").append(HTMLworkStart);
 
-	var x = HTMLworkEmployer.replace("%data%" , work.jobs[i].employer) 
-		+ HTMLworkTitle.replace("%data%" , work.jobs[i].title);
+	var x = HTMLworkEmployer.replace("%data%" , this.jobs[i].employer) 
+		+ HTMLworkTitle.replace("%data%" , this.jobs[i].title);
 	
-	var y = HTMLworkLocation.replace("%data%" , work.jobs[i].location) +
-		HTMLworkDates.replace("%data%" , work.jobs[i].dates);
+	var y = HTMLworkLocation.replace("%data%" , this.jobs[i].location) +
+		HTMLworkDates.replace("%data%" , this.jobs[i].dates);
 	
-	var z = HTMLworkDescription.replace("%data%" , work.jobs[i].description);
+	var z = HTMLworkDescription.replace("%data%" , this.jobs[i].description);
 	
 	$(".work-entry:last").append(x, y, z);
 }
@@ -106,13 +106,13 @@ work.display = function() {
 
 bio.display = function() {
 
-	var nameRes = HTMLheaderName.replace("%data%" , bio.name);
+	var nameRes = HTMLheaderName.replace("%data%" , this.name);
 
-	var roleRs = HTMLheaderRole.replace("%data%" , bio.role);
+	var roleRs = HTMLheaderRole.replace("%data%" , this.role);
 
-	var imgTag = HTMLbioPic.replace("%data%" , bio.bioPic);
+	var imgTag = HTMLbioPic.replace("%data%" , this.bioPic);
 
-	var welMsg = HTMLwelcomeMsg.replace("%data%" , bio.welcomeMessage);
+	var welMsg = HTMLwelcomeMsg.replace("%data%" , this.welcomeMessage);
 
 	$("#header").prepend(nameRes, roleRs);
 
@@ -121,27 +121,50 @@ bio.display = function() {
 	var contactInfo = ["mobile","email","twitter","github","blog","location"];
 	
 	for (var x = 0; x < contactInfo.length; x++) {
-	if(bio.contacts.hasOwnProperty(contactInfo[x])) {
+	if(this.contacts.hasOwnProperty(contactInfo[x])) {
 	var y = HTMLcontact.replace("%mode%" , contactInfo[x]);
-	var z = y.replace("%data%" , bio.contacts[contactInfo[x]]);
+	var z = y.replace("%data%" , this.contacts[contactInfo[x]]);
 	$("#topContacts").append(z);
+	$("#footerContacts").append(z);
+
 		};
 	}
 
-	if (bio.skills.length > 0) { 
+	if (this.skills.length > 0) { 
 	$("#header").append(HTMLskillsStart);
-	for(var x = 0; x < bio.skills.length; x++) {
-	var skill = HTMLskills.replace("%data%" , bio.skills[x]);
+	for(var x = 0; x < this.skills.length; x++) {
+	var skill = HTMLskills.replace("%data%" , this.skills[x]);
 	$("#skills").append(skill);
 		}
 	};
 
 }
 
+education.display = function () {
+	$("#education h2").after(HTMLschoolStart);
+	
+	for (var i in this.schools) {
+		var x = HTMLschoolName.replace("%data%" , this.schools[i].name) +
+				HTMLschoolDegree.replace("%data%" , this.schools[i].degree) +
+				HTMLschoolDates.replace("%data%" , this.schools[i].dates) +
+				HTMLschoolLocation.replace("%data%" , this.schools[i].location) +
+				HTMLschoolMajor.replace("%data%" , this.schools[i].majors.join(", "));
+		$(".education-entry:last").append(x);
+	}
 
+	$(".education-entry").after(HTMLonlineClasses);
 
+	$("div.education-entry + h3").after(HTMLschoolStart);
 
-
+	for (var j in this.onlineCourses) {
+		var z= HTMLonlineURL.replace("%data%" , this.onlineCourses[j].url);
+		var y = HTMLonlineTitle.replace("%data%" , this.onlineCourses[j].title) +
+				HTMLonlineSchool.replace("%data%" , this.onlineCourses[j].school) +
+				HTMLonlineDates.replace("%data%" , this.onlineCourses[j].date) +
+				 z.replace( "#" , this.onlineCourses[j].url);
+		$("h3 + div.education-entry:last").append(y);
+	} 
+} 
 
 
 function inName(name){
@@ -157,10 +180,17 @@ work.display();
 
 bio.display();
 
+education.display();
+
 $("#main").append(internationalizeButton);
 
 $("#mapDiv").append(googleMap);
 
+
+$(document).ready(function(){$("#workExperience, #projects, #education, #mapDiv, #lets-connect").hide(function(){
+	
+});
+});
 
 
 
